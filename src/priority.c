@@ -33,7 +33,11 @@ main(int argc, char** argv)
   char *filename = NULL;
 
   /* this is needed before calling certain glib functions */
-  g_type_init();
+
+  /* DEPRECATED 
+   g_type_init(); 
+   */
+
 
   //grab inputs
   while ((ch = getopt(argc, argv, "hf:")) != -1) {

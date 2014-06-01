@@ -35,7 +35,9 @@ main(int argc, char** argv)
   unsigned long act = 0;
 
   /* this is needed before calling certain glib functions */
+  /* DEPRECATED 
   g_type_init();
+  */
 
   //grab inputs
   while ((ch = getopt(argc, argv, "dhp:a:")) != -1) {

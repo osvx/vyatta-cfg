@@ -686,7 +686,7 @@ static OpT ops[] = {
   OP(cfReturnValue, -1, NULL, 2, "Must specify config file and path", false),
   OP(cfReturnValues, -1, NULL, 2, "Must specify config file and path", false),
 
-  {NULL, -1, NULL, -1, NULL, NULL, false}
+  {NULL, -1, NULL, -1, NULL, false}
 };
 #define OP_exact_args  ops[op_idx].op_exact_args
 #define OP_min_args    ops[op_idx].op_min_args

@@ -159,7 +159,9 @@ main(int argc, char** argv)
   char   *commit_comment  = NULL;  
 
   /* this is needed before calling certain glib functions */
+  /* DEPRECATED
   g_type_init();
+  */
 
   //grab inputs
   while ((ch = getopt(argc, argv, "xdpthsecoafb:rlC:")) != -1) {

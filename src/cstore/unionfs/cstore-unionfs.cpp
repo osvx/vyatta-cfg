@@ -1067,12 +1067,12 @@ UnionfsCstore::unmark_deactivated_descendants()
       vector<b_fs::path> markers;
       b_fs::recursive_directory_iterator di(get_work_path().path_cstr());
       for (; di != b_fs::recursive_directory_iterator(); ++di) {
-        if (!path_is_regular(di->path().file_string().c_str())
-            || di->path().filename() != C_MARKER_DEACTIVATE) {
+        if (!path_is_regular(di->path().string().c_str())
+            || di->path().filename().string() != C_MARKER_DEACTIVATE) {
           // not marker
           continue;
         }
-        const char *ppath = di->path().parent_path().file_string().c_str();
+        const char *ppath = di->path().parent_path().string().c_str();
         if (strcmp(ppath, get_work_path().path_cstr()) == 0) {
           // don't unmark the node itself
           continue;
@@ -1135,8 +1135,8 @@ UnionfsCstore::unmark_changed_with_descendants()
     vector<b_fs::path> markers;
     b_fs::recursive_directory_iterator di(get_work_path().path_cstr());
     for (; di != b_fs::recursive_directory_iterator(); ++di) {
-      if (!path_is_regular(di->path().file_string().c_str())
-          || di->path().filename() != C_MARKER_CHANGED) {
+      if (!path_is_regular(di->path().string().c_str())
+          || di->path().filename().string() != C_MARKER_CHANGED) {
         // not marker
         continue;
       }
@@ -1194,7 +1194,7 @@ UnionfsCstore::discard_changes(unsigned long long& num_removed)
     // iterate through all entries in change root
     b_fs::directory_iterator di(change_root.path_cstr());
     for (; di != b_fs::directory_iterator(); ++di) {
-      if (path_is_directory(di->path().file_string().c_str())) {
+      if (path_is_directory(di->path().string().c_str())) {
         directories.push_back(di->path());
       } else {
         files.push_back(di->path());
@@ -1327,10 +1327,10 @@ UnionfsCstore::check_dir_entries(const FsPath& root, vector<string> *cnodes,
   try {
     b_fs::directory_iterator di(root.path_cstr());
     for (; di != b_fs::directory_iterator(); ++di) {
-      string cname = di->path().filename();
+      string cname = di->path().filename().string();
       if (filter_nodes) {
         // must be directory
-        if (!path_is_directory(di->path().file_string().c_str())) {
+        if (!path_is_directory(di->path().string().c_str())) {
           continue;
         }
         // name cannot start with "."
@@ -1429,14 +1429,14 @@ UnionfsCstore::recursive_copy_dir(const FsPath& src, const FsPath& dst,
 
   b_fs::recursive_directory_iterator di(src_str);
   for (; di != b_fs::recursive_directory_iterator(); ++di) {
-    const char *oname = di->path().file_string().c_str();
+    const char *oname = di->path().string().c_str();
     string nname = oname;
     nname.replace(0, src_str.length(), dst_str);
     if (path_is_directory(oname)) {
       b_fs::create_directory(nname);
     } else {
       if (filter_dot_entries) {
-        string of = di->path().filename();
+        string of = di->path().filename().string();
         if (!of.empty() && of.at(0) == '.') {
           // filter dot files (with exceptions)
           if (of != C_COMMENT_FILE) {
@@ -1544,7 +1544,7 @@ UnionfsCstore::do_umount(const FsPath& mdir)
   const char *fusermount_path, *fusermount_prog;
   const char *fusermount_umount;
 
-  fusermount_path = "/usr/bin/fusermount";
+  fusermount_path = "/bin/fusermount";
   fusermount_prog = "fusermount";
   fusermount_umount = "-u";
 
@@ -1568,7 +1568,7 @@ UnionfsCstore::do_umount(const FsPath& mdir)
     dup2(commpipe[0],0);
     close(commpipe[1]);
     if (execl(fusermount_path, fusermount_prog, fusermount_umount, mdir.path_cstr(), NULL) != 0) {
-        output_internal("union mount failed [%s][%s]\n",
+        output_internal("union umount failed [%s][%s]\n",
                    strerror(errno), mdir.path_cstr());
         return false;
     }

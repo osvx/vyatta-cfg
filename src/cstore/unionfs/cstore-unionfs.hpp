@@ -290,7 +290,7 @@ private:
   // boost fs operations wrappers
   bool b_fs_get_file_status(const char *path, b_fs::file_status& fs) {
     b_s::error_code ec;
-    fs = b_fs::detail::status_api(path, ec);
+    fs = b_fs::detail::status(path, &ec);
     return (!ec);
   };
   bool path_exists(const char *path);

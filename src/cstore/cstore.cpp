@@ -27,7 +27,7 @@
 
 // for debian's version comparison algorithm
 #define APT_COMPATIBILITY 986
-#include <apt-pkg/version.h>
+#include <apt-pkg/debversion.h>
 
 #include <cli_cstore.h>
 #include <cstore/cstore.hpp>
@@ -2023,7 +2023,8 @@ Cstore::assert_internal(bool cond, const char *fmt, ...)
 bool
 Cstore::sort_func_deb_version(string a, string b)
 {
-  return (pkgVersionCompare(a, b) < 0);
+//  return (pkgVersionCompare(a, b) < 0);
+  return (debVS.CmpVersion(a, b) < 0);
 }
 
 void

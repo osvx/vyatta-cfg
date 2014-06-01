@@ -1,3 +1,17 @@
+vyatta-cfg (0.103.0+osvx1+projectx1) unstable; urgency=medium
+
+  [ Hiroyuki Sato ]
+  * Bug #180 save config using scp fails.
+
+  [ Kim Hagen ]
+  * Removed part of dirty workaround, chmod of of /dev/fuse and /usr/bin/fusermount can be avoided by adding admin users to the fuse group. That part is done in the vyatta-cfg-system package.
+  * Removed dirty workaround for fuse completely. Use Build-iso to create /etc/fuse.conf file. Use pipe(),fork(),execl() functions instead of system() function to call unionfs-fuse.
+
+  [ Valentin Yakovenkov ]
+  * Upgraded to Ubuntu 14.04 LTS
+
+ -- Valentin Yakovenkov <yakovenkov@gmail.com>  Sun, 01 Jun 2014 15:16:25 +0400
+
 vyatta-cfg (0.102.0+vyos1+helium3) unstable; urgency=low
 
   [ higebu ]

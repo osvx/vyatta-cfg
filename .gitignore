@@ -45,4 +45,5 @@ src/cparse/cparse.cpp
 src/cparse/cparse.h
 src/cparse/cparse_lex.c
 tools/rl_passwd
-
+/perl_dmod/Cstore/MYMETA.json
+/perl_dmod/Cstore/MYMETA.yml
